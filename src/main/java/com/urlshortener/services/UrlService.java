@@ -65,15 +65,11 @@ public class UrlService {
 
         Url url = getUrlShortFromUrlPath(urlPath);
         List<UrlAccess> urlAccess = url.getAccess();
-        List<UrlAccess> access;
 
-        access = urlAccess.stream()
-                     .filter(x -> x.getDate().toLocalDate().isEqual(dateFromDateTime))
-                     .peek(y -> y.setAcessNumber(y.getAcessNumber() + 1)).collect(Collectors.toList());
+        urlAccess.stream()
+                .filter(x -> x.getDate().toLocalDate().isEqual(dateFromDateTime))
+                .peek(y -> y.setAcessNumber(y.getAcessNumber() + 1)).collect(Collectors.toList());
 
-        if(access.isEmpty()) {
-            urlAccess.add(UrlAccess.builder().acessNumber(1).date(localDate).build());
-        }
         urlRepository.save(url);
     }
 
